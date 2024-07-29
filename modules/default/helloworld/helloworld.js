@@ -43,15 +43,19 @@ Module.register("helloworld", {
 	},
 
 	notificationReceived: function(notification, payload, sender) {
-		console.log('helloworld - notification', notification)
-		console.log('helloworld - payload', payload)
-		console.log('helloworld - sender', sender)
 
-		if (notification !== 'CURRENT_USER')
+		if (notification !== 'USERS_LOGIN')
 			return;
 
-		this.user = payload;
-		console.log('helloworld - showing user', payload)
+		// console.log('helloworld - notification', notification)
+		// console.log('helloworld - payload', payload)
+		// console.log('helloworld - sender', sender)
+		// console.log('helloworld - showing user', payload?.[0])
+
+		if (payload?.[0] === undefined)
+			return
+		this.user = payload?.[0]
+
 		this.updateDom( {
 			options: {
 				speed: 1500, // animation duration
