@@ -1,7 +1,7 @@
 Module.register("helloworld", {
 	// Default module config.
 	defaults: {
-		user: "None",
+		text: "Hello World!"
 	},
 
 	getTemplate () {
@@ -25,36 +25,57 @@ Module.register("helloworld", {
 	},
 
 	getDom() {
-		const helloDiv = document.createElement('DIV');
-		if (this.user === 'None' || this.user === undefined) {
-			helloDiv.textContent = '';
-			helloDiv.classList.remove('bright');
-			helloDiv.classList.remove('large');
-			helloDiv.style.opacity = '0';
-			return helloDiv;				
-		}
+		let helloDiv = null;
+		const content = this.getContent();
+		if (!content)
+			return this.hideBlock();
+		return this.showBlock(content);
+	},
 
-		helloDiv.classList.add('bright')
-		helloDiv.classList.add('large');
-		helloDiv.style.opacity = '1';
-		const content = `Bonjour ${ this.capitalize(this.user) } !!!`;
+	getContent() {
+		if (
+			!this.user ||
+			this.user === 'NOONE'
+		) return null;
+
+		if (
+			typeof this.user === 'string' &&
+			this.user.toUpperCase() === 'UNKNOWN'
+		) return `Bienvenue à l'Atelier !!!`;
+
+		return `Bonjour ${ this.capitalize(this.user) } !!!`;
+	},
+
+	hideBlock() {
+		return this.getNode();
+	},
+
+	showBlock(content) {
+		const helloDiv = this.getNode();
 		helloDiv.textContent = content;
 		return helloDiv;
 	},
 
-	notificationReceived: function(notification, payload, sender) {
+	getNode() {
+		let helloDiv = document.querySelector('#user-greetings-latelier');
+		if (!helloDiv) {
+			helloDiv = document.createElement('DIV');
+			helloDiv.setAttribute('id', 'user-greetings-latelier');
+	        helloDiv.classList.add('bright')
+	        helloDiv.classList.add('large');
+	        helloDiv.textContent = '';
+		}
+		return helloDiv;
+	},
+
+	notificationReceived(notification, payload, sender) {
+
+		console.info('helloworld - { notification, payload }', { notification, payload, sender });
 
 		if (notification !== 'USERS_LOGIN')
 			return;
 
-		// console.log('helloworld - notification', notification)
-		// console.log('helloworld - payload', payload)
-		// console.log('helloworld - sender', sender)
-		// console.log('helloworld - showing user', payload?.[0])
-
-		if (payload?.[0] === undefined)
-			return
-		this.user = payload?.[0]
+		this.user = this.parseUser(payload);
 
 		this.updateDom( {
 			options: {
@@ -62,8 +83,17 @@ Module.register("helloworld", {
 				animate: {
 					in: "backInDown", // animation when module shown (after update)
 					out: "backOutUp" // animatation when module will hide (before update)
+					// in: "animateIn",
+					// out: "animateOut",
 				}
 			}
-		})
+		});
+	},
+
+	parseUser(payload) {
+		if (!!payload?.[0] === false)
+			return 'NOONE';
+		else
+			return payload[0]
 	},
 });
