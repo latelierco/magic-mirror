@@ -102,6 +102,7 @@ And in MagicMirror configuration, paste and modify configuration for MMM-Face-Re
 
 
 	cd /home/pi/MagicMirror
+	cp css/custom.css.sample css/custom.css
 
 
 ```
