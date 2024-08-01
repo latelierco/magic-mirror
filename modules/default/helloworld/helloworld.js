@@ -70,8 +70,6 @@ Module.register("helloworld", {
 
 	notificationReceived(notification, payload, sender) {
 
-		console.info('helloworld - { notification, payload }', { notification, payload, sender });
-
 		if (notification !== 'USERS_LOGIN')
 			return;
 

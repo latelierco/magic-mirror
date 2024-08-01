@@ -1,0 +1,118 @@
+Module.register('MMM-news-le-monde', {
+
+	// Default module config.
+
+	defaults: {
+		fetchInterval: 15 * 60 * 1000,
+		url: 'https://www.lemonde.fr/rss/en_continu.xml?refresh=' + Math.floor(Math.random() * 1000000),
+		title: '',
+		description: '',
+		started: false,
+		wrapper: null,
+	},
+
+
+	start() {
+		this.sendSocketNotification('NEWS_LE_MONDE_CONFIG', { config: this.config })
+	},
+
+
+	getDom() {
+
+		const wrapper = document.createElement('DIV');
+		wrapper.setAttribute('id', 'french-news');
+
+		if (
+			!this.title ||
+			!this.description
+		) return wrapper;
+
+		const titleSpan = document.createElement('SPAN');
+		const newLine = document.createElement('BR');
+		const descriptionSpan = document.createElement('SPAN');
+
+		titleSpan.classList.add('bright');
+		titleSpan.classList.add('medium');
+		titleSpan.classList.add('semi-thin');
+
+		descriptionSpan.classList.add('dimmed')
+		descriptionSpan.classList.add('medium');
+		descriptionSpan.classList.add('light');
+
+		titleSpan.textContent = this.title + ' : ';
+		descriptionSpan.textContent = this.description;
+
+		wrapper.appendChild(titleSpan);
+		wrapper.appendChild(newLine)
+		wrapper.appendChild(descriptionSpan);
+
+		return wrapper;
+	},
+
+
+
+
+	getTemplate () {
+		return 'MMM-news-le-monde.njk';
+	},
+
+
+	getTemplateData () {
+		return this.config;
+	},
+
+
+	notificationReceived(notification, payload, sender) {
+
+		if (/^NEWS_LE_MONDE(.*)?$/.test(notification) === false)
+			return;
+
+	},
+
+
+	getParsedNews(payload) {
+		try {
+			return JSON.parse(payload);
+		} catch(err) {
+			console.error('[NEWS_LE_MONDE][ERROR] JSON parse error with news batch');
+		}
+	},
+
+
+	socketNotificationReceived(notification, payload) {
+
+		if (/^NEWS_LE_MONDE(.*)?$/.test(notification) === false)
+			return;
+
+		this.getContent(notification, payload)
+	},
+
+
+	getContent(notification, payload) {
+
+		if (notification !== 'NEWS_LE_MONDE_CONTENT')
+			return;
+
+		const {
+			title = null,
+			description = null
+		} = this.getParsedNews(payload);
+
+
+		if (!title || !description)
+			return;
+
+		this.title = title;
+		this.description = description;
+
+		this.updateDom( {
+			options: {
+				speed: 1500,
+				animate: {
+					in: "animateIn",
+					out: "animateOut",
+				}
+			}
+		});
+	},
+});
