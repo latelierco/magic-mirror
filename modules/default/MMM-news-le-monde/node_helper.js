@@ -63,7 +63,7 @@ module.exports = NodeHelper.create({
 
 		setInterval(() => {
 			this.newsStart();
-		}, 20000)
+		}, 20 * 1000)
 	},
 
 

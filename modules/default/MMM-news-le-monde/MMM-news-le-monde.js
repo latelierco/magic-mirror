@@ -8,7 +8,6 @@ Module.register('MMM-news-le-monde', {
 		title: '',
 		description: '',
 		started: false,
-		wrapper: null,
 	},
 
 
@@ -34,10 +33,12 @@ Module.register('MMM-news-le-monde', {
 		titleSpan.classList.add('bright');
 		titleSpan.classList.add('medium');
 		titleSpan.classList.add('semi-thin');
+		titleSpan.setAttribute('id', 'french-news-title');
 
 		descriptionSpan.classList.add('dimmed')
 		descriptionSpan.classList.add('medium');
 		descriptionSpan.classList.add('light');
+		descriptionSpan.setAttribute('id', 'french-news-description');
 
 		titleSpan.textContent = this.title + ' : ';
 		descriptionSpan.textContent = this.description;
