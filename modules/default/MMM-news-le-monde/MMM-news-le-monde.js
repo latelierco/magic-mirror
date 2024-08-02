@@ -33,7 +33,6 @@ Module.register('MMM-news-le-monde', {
 		content.setAttribute('id', 'french-news-content');
 
 		const titleSpan = document.createElement('SPAN');
-		const newLine = document.createElement('BR');
 		const descriptionSpan = document.createElement('SPAN');
 
 		titleSpan.classList.add('bright');
@@ -50,7 +49,6 @@ Module.register('MMM-news-le-monde', {
 		descriptionSpan.textContent = this.description;
 
 		content.appendChild(titleSpan);
-		content.appendChild(newLine)
 		content.appendChild(descriptionSpan);
 
 		wrapper.appendChild(logo)
