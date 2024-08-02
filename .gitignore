@@ -84,3 +84,17 @@ Temporary Items
 *.orig
 *.rej
 *.bak
+
+# package-lock.json
+# should not be commited
+# because of diversity
+# of environment
+# Ubuntu Intel for dev
+# and Raspberry ARM for deployment
+#
+# npm package versions
+# may vary greatly based on
+# node for linux and for raspberry
+package-lock.json
+
+

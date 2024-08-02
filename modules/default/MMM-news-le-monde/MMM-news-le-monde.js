@@ -26,6 +26,12 @@ Module.register('MMM-news-le-monde', {
 			!this.description
 		) return wrapper;
 
+		const logo = document.createElement('DIV');
+		logo.setAttribute('id', 'french-news-logo');
+
+		const content = document.createElement('DIV');
+		content.setAttribute('id', 'french-news-content');
+
 		const titleSpan = document.createElement('SPAN');
 		const newLine = document.createElement('BR');
 		const descriptionSpan = document.createElement('SPAN');
@@ -43,10 +49,12 @@ Module.register('MMM-news-le-monde', {
 		titleSpan.textContent = this.title + ' : ';
 		descriptionSpan.textContent = this.description;
 
-		wrapper.appendChild(titleSpan);
-		wrapper.appendChild(newLine)
-		wrapper.appendChild(descriptionSpan);
+		content.appendChild(titleSpan);
+		content.appendChild(newLine)
+		content.appendChild(descriptionSpan);
 
+		wrapper.appendChild(logo)
+		wrapper.appendChild(content)
 		return wrapper;
 	},
 

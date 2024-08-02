@@ -1,20 +1,39 @@
 
 #french-news {
+    position: relative;
+    top: -100px;
 	width: 80vw;
 	margin: auto;
 	text-align: left;
+    display: flex;
+    flex-direction: row;
 }
 
-#french-news-title::before {
+#french-news-logo {
     background-image: url('images/le-monde-logo-white.svg');
     background-repeat: no-repeat;
-    background-size: 300px 100px;
-    display: block;
-    bottom: -100px;
-	margin: 0 15px 500px 0;
-	float: left;
-    width: 300px; 
-    height: 100px;
-    content:"";
+    background-size: contain;
+    top: -0.5rem;
+    width: 28%;
+    height: auto;
+    flex-shrink: 1;
     opacity: 0.5;
+}
+
+#french-news-content {
+    padding-top: 25px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 72%;
+    height: auto;
+}
+
+.french-news-title {
+    /*    */
+}
+
+.french-news-description {
+    /*    */
 }
