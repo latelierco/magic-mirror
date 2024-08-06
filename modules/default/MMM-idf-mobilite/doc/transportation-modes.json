@@ -1,0 +1,14 @@
+[
+  {
+    "id": "physical_mode:Bus",
+    "name": "Bus"
+  },
+  {
+    "id": "physical_mode:Train",
+    "name": "TER / Intercités"
+  },
+  {
+    "id": "physical_mode:LocalTrain",
+    "name": "Train Transilien"
+  }
+]

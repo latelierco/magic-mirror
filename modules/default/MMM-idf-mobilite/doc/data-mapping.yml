@@ -1,0 +1,44 @@
+http response body
+  journeys
+    duration: in seconds
+    nb_transfers: smallint
+    sections
+    	mode: (walking)
+
+    	to
+    		name
+
+    	from
+    		name
+
+    	display_informations
+    		commercial_mode: Tramway
+    		network: RATP
+    		direction: Épinay - Orgemont (Épinay-sur-Seine)
+    		label: T8
+    		code
+    		name
+    		physical_mode: Tramway
+
+        links:
+            templated: false,
+            rel: disruptions,
+            internal: true,
+            type: disruption,
+            id: cfb53a02-4436-11ef-a886-0a58a9feac02
+
+    	stop_date_times
+    		departure_date_time (1st)
+    		arrival_date_time (last)
+
+  links
+
+  	href: https://api-idfm.navitia.io/v1/coverage/idfm/disruptions/{disruption.id},
+  	templated: true,
+  	rel: disruptions,
+  	type: disruption
+
+  	href: https://api-idfm.navitia.io/v1/coverage/idfm/disruptions/{disruptions.id},
+  	templated: true,
+  	rel: disruptions,
+  	type: disruptions

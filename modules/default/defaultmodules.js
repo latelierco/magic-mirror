@@ -3,7 +3,7 @@
  */
 // const defaultModules = ["alert", "calendar", "clock", "compliments", "helloworld", "newsfeed", "updatenotification", "weather"];
 // const defaultModules = ["weather", "newsfeed", "updatenotification"];
-const defaultModules = ["updatenotification", "weather", "clock", "calendar", "newsfeed", "helloworld", "MMM-news-le-monde"];
+const defaultModules = ["updatenotification", "weather", "clock", "calendar", "newsfeed", "helloworld", "MMM-news-le-monde", "MMM-idf-mobilite"];
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
 if (typeof module !== "undefined") {
