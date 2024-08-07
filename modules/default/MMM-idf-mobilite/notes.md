@@ -150,4 +150,4 @@ TODO:
 	- assouplir l'affichage
 	- possiblement ajouter des pictos
 	- documentation
-	- code cleanup
+	- code cleanup => Ok

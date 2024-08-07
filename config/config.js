@@ -158,7 +158,7 @@ let config = {
 			config: {
 				// Logout 15 seconds after user was not detecte anymore, if they will be detected between this 15
 				// Seconds, they delay will start again
-				logoutDelay: 3000,
+				logoutDelay: 7000,
 				// How many time the recognition starts, with a RasPi 3+ it would be good every 2 seconds
 				checkInterval: 500,
 				// Module set used for when there is no face detected ie no one is in front of the camera
