@@ -1,14 +1,16 @@
 
 async function journeyFormat(data) {
-	
-	console.debug('//////////////////////////////// journeyFormat - data', data);
-
-	const journeyData = getJourneyData(data);
-	const bestJourney = getBestJourney(journeyData);
-
-	const details = getJourneyDetails(bestJourney);
-	const sections = await formatSections(bestJourney);
-	return Object.assign({}, details, { sections });
+	try {
+		const journeyData = getJourneyData(data);
+		console.info('[INFO] Got journey data = OK');
+		const bestJourney = getBestJourney(journeyData);
+		const details = getJourneyDetails(bestJourney);
+		const sections = await formatSections(bestJourney);
+		console.info('[INFO] Formatted journey data = OK');
+		return Object.assign({}, details, { sections });
+	} catch(err) {
+		console.error(err);
+	}
 }
 
 

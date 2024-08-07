@@ -30,8 +30,6 @@ module.exports = NodeHelper.create({
 
 	async socketNotificationReceived (notification, payload) {
 
-		console.debug('received socket notif - start', notification, payload)
-
 		if (this.isModuleNotif(notification) === false)
 			return;
 
@@ -46,7 +44,7 @@ module.exports = NodeHelper.create({
 				case 'USERS_LOGIN_USER_IDENTITY':
 					const { user: userName } = payload;
 					const journey = await this.getPublicTransportationDetails(userName);
-					console.debug('socketNotificationReceived - journey', journey);
+					console.info(`[PUBLIC_TRANSPORTATION_IDF_MOB][INFO] Got public transportation info for user ${ userName } - OK`);
 					this.sendSocketNotification('PUBLIC_TRANSPORTATION_IDF_MOB_JOURNEY', { profile: this.profile, journey });
 					break;
 
@@ -71,17 +69,23 @@ module.exports = NodeHelper.create({
 
 	async getPublicTransportationDetails(userName) {
 
-		const profile = await this.getUserProfile(userName);
+		try {
 
-		const check = this.isProfileValid(profile);
-		if (!check)
-			return;
+			const profile = await this.getUserProfile(userName);
+			const check = this.isProfileValid(profile);
+			if (!check)
+				return;
 
-		this.profile = profile;
+			this.profile = profile;
 
-		const places = await this.getPlaces();
-		const journey = await this.getJourney(places);
-		return journeyFormat(journey);
+			const places = await this.getPlaces();
+			const journey = await this.getJourney(places);
+
+			return journeyFormat(journey);
+
+		} catch(err) {
+			console.error(err);
+		}
 	},
 
 
@@ -100,6 +104,7 @@ module.exports = NodeHelper.create({
 			profile.id = doc.id
 		})
 
+		console.info(`[PUBLIC_TRANSPORTATION_IDF_MOB][INFO] Got profile for user ${ userName } - OK`);
 		return profile;
 	},
 
@@ -135,6 +140,7 @@ module.exports = NodeHelper.create({
 		const workStr = this.getLocationToString(location_work);
 
 		const placesRes = await this.getPlacesQueries({ homeStr, workStr });
+		console.info(`[PUBLIC_TRANSPORTATION_IDF_MOB][INFO] Got geoloc data for user ${ userName } - OK`);
 		return this.getPlacesIds(placesRes);
 	},
 

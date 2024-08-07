@@ -67,3 +67,87 @@ Datetime format is `YYYYMMDDTHHMM`
 1722607465857
 
 places-api-resp
+
+
+---
+
+Ok, voici un petit CR des propos échangé aujourd'hui en point hebdo Miroir Connecté:
+
+A ce stade : 2 modules à titre d'exemple d'intégration
+	- intégration news en français - le monde (contenu générique)
+	- intégration IDF Mobilité, trajet utilisateur (contenu personnalisé)
+
+
+
+	event reco user
+
+		------------------------ nom de user ---------------> firebase
+
+
+		<----------------------- profile user --------------- firebase 
+
+			profile:
+				name_first
+				name_last
+				location_work <-- extract for next query
+					address
+					zip_code (code postal)
+					city
+				location_home <-- extract for next query
+					address
+					zip_code (code postal)
+					city
+				optins
+					public_transport_info: bool === false
+
+
+
+
+
+
+
+	    location_work - concatenation into string -> departure (location)
+	    location_home -- concatenation into string --> arrival (location)
+
+
+		----------------- departure / arrival --------> API IDF Mobilités
+
+		<--------------- departure and arrival -------- API IDF Mobilités
+			         long. and lat. geo coordinates
+
+
+
+
+
+		
+
+						      departure
+						   	      geoloc long / lat
+
+		-----------------------            -----------> API IDF Mobilités
+
+							  arrival
+								  geoloc long / lat
+
+
+        <-------------- journey calculation ----------- API IDF Mobilités
+
+
+
+
+
+
+
+
+
+        -------------------- disruption ID -----------> API IDF Mobilités
+
+        <----------------- disruption object ---------- API IDF Mobilités
+
+
+
+TODO:
+	- assouplir l'affichage
+	- possiblement ajouter des pictos
+	- documentation
+	- code cleanup

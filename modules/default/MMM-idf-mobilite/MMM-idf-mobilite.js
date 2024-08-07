@@ -51,14 +51,6 @@ Module.register('MMM-idf-mobilite', {
 			sections = null,
 		} = this.journey;
 
-		console.debug('//////////////////// template data', {
-			departureCity,
-			arrivalCity,
-			duration,
-			nbTransfers,
-			sections
-		});
-
 		return {
 			departureCity,
 			arrivalCity,
@@ -79,7 +71,8 @@ Module.register('MMM-idf-mobilite', {
 		if (!user)
 			return;
 
-		console.info('[INFO] sending socket notif', notification, payload)
+		console.info('[INFO] MMM-idf-mobilite - received notification', notification, payload);
+		console.info('[INFO] MMM-idf-mobilite - sending socket notification', notification, payload);
 		this.sendSocketNotification(this.config.userModule + '_USER_IDENTITY', { user });
 	},
 
@@ -95,6 +88,8 @@ Module.register('MMM-idf-mobilite', {
 		if (notification !== 'PUBLIC_TRANSPORTATION_IDF_MOB_JOURNEY')
 			return;
 
+		console.info('[INFO] MMM-idf-mobilite - received sockey notification', notification, payload);
+
 		const {
 			profile = null,
 			journey = null
@@ -102,9 +97,6 @@ Module.register('MMM-idf-mobilite', {
 
 		if (!profile || !journey)
 			return;
-
-		console.debug('/////////////////////// profile', JSON.stringify(profile, null, 4));
-		console.debug('/////////////////////// journey', JSON.stringify(journey, null, 4));
 
 		this.setResponseData(profile, journey);
 	},
