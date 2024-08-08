@@ -140,7 +140,7 @@ module.exports = NodeHelper.create({
 		const workStr = this.getLocationToString(location_work);
 
 		const placesRes = await this.getPlacesQueries({ homeStr, workStr });
-		console.info(`[PUBLIC_TRANSPORTATION_IDF_MOB][INFO] Got geoloc data for user ${ userName } - OK`);
+		console.info(`[PUBLIC_TRANSPORTATION_IDF_MOB][INFO] Got geoloc data for user - OK`);
 		return this.getPlacesIds(placesRes);
 	},
 
