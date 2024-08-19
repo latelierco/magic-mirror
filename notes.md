@@ -12,17 +12,22 @@ doc. versions :
 
 ### Install
 
-repo address : https://github.com/tm-wong/MagicMirror/tree/upgrade-proposed-l_atelier
+repo address : https://github.com/latelierco/magic-mirror/tree/mmm-face-reco-dnn
 
-active branch : upgrade-proposed-l_atelier
+active branches :
+
+	- upgrade-proposed-l_atelier
+	- mmm-face-reco-dnn
+
 
 ```bash
 
-	git clone git@github.com:tm-wong/MagicMirror.git
-	git checkout upgrade-proposed-l_atelier
+	git clone git@github.com:latelierco/magic-mirror.git
+	git checkout mmm-face-reco-dnn
 	npm install
 
 ```
+
 
 ### Run
 
