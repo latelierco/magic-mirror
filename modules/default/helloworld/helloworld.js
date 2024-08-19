@@ -14,12 +14,12 @@ Module.register("helloworld", {
 
 	capitalize(str) {
 		return str.split(' ')
-			.map(word => str.trim())
+			.map(word => word.trim())
 			.filter(word => word.length !== 0)
 			.map(word => {
 				return word.split('')
 					.map((char, idx) => idx === 0 && char.toUpperCase() || char.toLowerCase())
-					.join('')
+					.join('') + ' '
 			})
 			.join('')
 	},
