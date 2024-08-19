@@ -95,7 +95,7 @@ module.exports = NodeHelper.create({
 
 		const q = query(
 			collection(this.db, 'users'),
-			where('name_first', '==', userName)
+			where('user_name', '==', userName)
 		);
 
 		const snap = await getDocs(q)
