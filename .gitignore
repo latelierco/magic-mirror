@@ -97,4 +97,5 @@ Temporary Items
 # node for linux and for raspberry
 package-lock.json
 
-
+# ide config
+*.sublime-*

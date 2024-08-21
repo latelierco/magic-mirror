@@ -42,7 +42,7 @@ module.exports = NodeHelper.create({
 		try {
 			const respText = await this.newsFetch();
 			this.news = this.getItems(respText);
-			console.info('[NEWS_LE_MONDE][INFO] getNews - OK');
+			console.info('[NEWS_LE_MONDE] getNews - OK');
 			this.initNews();
 			this.cycleContent();
 		} catch(err) {
@@ -52,7 +52,7 @@ module.exports = NodeHelper.create({
 
 
 	initNews() {
-		this.cycle = setInterval(async() => await this.getNews(), this.config.fetchInterval || 15 * 60 * 1000);
+		this.cycle = setInterval(async() => await this.getNews(), this.config.fetchInterval || 30 * 60 * 1000);
 	},
 
 
