@@ -148,4 +148,9 @@ popd && \
 #     du backoffice. de façon plus exacte, l'emplacement de fichier devrait être :
 #     `/home/pi/magic-mirror/modules/MMM-Face-Reco-DNN/backoffice-magic-mirror/security/firebase-credentials.js`
 #     selon l'emplacement de `magic-mirror`
-
+#
+#
+#
+#     par ailleurs, une copie de ces deux fichiers
+#     a été placée sur le Drive de L'Atelier
+#     dans le répertoire partagé `MIROIR CONNECTE/firebase-credentials`
