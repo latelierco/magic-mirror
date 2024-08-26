@@ -103,11 +103,13 @@ package-lock.json
 *.sublime-*
 
 # complement-fix
+js
+css/custom.css.sample
+config/config.js.sample
 CHANGELOG.md
 clientonly/
 Collaboration.md
 fonts/
-.husky/
 index.html
 installers/
 jest.config.js
