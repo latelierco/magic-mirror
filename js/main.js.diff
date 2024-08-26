@@ -1,0 +1,24 @@
+		const modulesByClass = function (className, include) {
+			let searchClasses = className;
+			if (typeof className === "string") {
+				searchClasses = className.split(" ");
+			}
++			else if (Array.isArray(className) === false) {
++				searchClasses = [];
++			}
+
+			const newModules = modules.filter(function (module) {
+				const classes = module.data.classes.toLowerCase().split(" ");
+
+				for (const searchClass of searchClasses) {
+					if (classes.indexOf(searchClass.toLowerCase()) !== -1) {
+						return include;
+					}
+				}
+
+				return !include;
+			});
+
+			setSelectionMethodsForModules(newModules);
+			return newModules;
+		};

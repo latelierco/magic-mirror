@@ -75,11 +75,6 @@ body {
   line-height: 1.225;
 }
 
-.semi-medium {
-  font-size: var(--font-size-semi-medium);
-  line-height: 1.125;
-}
-
 .large {
   font-size: var(--font-size-large);
   line-height: 1;
@@ -94,11 +89,6 @@ body {
 .thin {
   font-family: var(--font-secondary), sans-serif;
   font-weight: 100;
-}
-
-.semi-thin {
-  font-family: var(--font-primary), sans-serif;
-  font-weight: 200;
 }
 
 .light {

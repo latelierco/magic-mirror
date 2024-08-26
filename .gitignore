@@ -64,16 +64,16 @@ Temporary Items
 !/modules/README.md**
 
 # Ignore changes to the custom css files but keep the sample and main.
-/css/*
-!/css/custom.css
-!/css/images/
-!/css/custom.css.sample
-!/css/main.css
+# /css/*
+# !/css/custom.css
+# !/css/images/
+# !/css/custom.css.sample
+# !/css/main.css
 
 # Ignore users config file but keep the sample.
-/config/*
-!/config/config.js
-!/config/config.js.sample
+# /config/*
+# !/config/config.js
+# !/config/config.js.sample
 
 # Vim
 ## swap
@@ -94,8 +94,32 @@ Temporary Items
 #
 # npm package versions
 # may vary greatly based on
-# node for linux and for raspberry
+# node deployment types
+# i.e. node for intel based linux
+# or node for raspberry
 package-lock.json
 
 # ide config
 *.sublime-*
+
+# complement-fix
+CHANGELOG.md
+clientonly/
+Collaboration.md
+fonts/
+.husky/
+index.html
+installers/
+jest.config.js
+jsconfig.json
+LICENSE.md
+mm2.png
+module-types.ts
+package.json
+README.md
+run-start.sh
+serveronly/
+splashscreen/
+tests/
+translations/
+vendor/

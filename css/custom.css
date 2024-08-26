@@ -55,3 +55,13 @@
 .idf-mob-section {
     list-style: none;
 }
+
+.semi-medium {
+  font-size: var(--font-size-semi-medium);
+  line-height: 1.125;
+}
+
+.semi-thin {
+  font-family: var(--font-primary), sans-serif;
+  font-weight: 200;
+}
