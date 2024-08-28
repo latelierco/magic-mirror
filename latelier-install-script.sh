@@ -4,17 +4,36 @@
 
 # installer python sur le système
 
-sudo apt update && \
-  sudo apt install -y python3
+# sudo apt update && \
+#   sudo apt install -y python3
+# 
+# python3 est déjà installé
+# avec system update et upgrade
+# 
+# sudo apt update
+# sudo apt upgrade
 
+# install node.js
+sudo apt install -y ca-certificates curl gnupg
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+sudo apt -y update
+sudo apt -y install nodejs
+sudo apt -y install build-essential
+
+echo '[INFO] installed node.js - OK'
 
 # créer un environnement virtuel python
 
-python3 -m venv --system-site-packages ~/my-python-env
+python3 -m venv --system-site-packages ~/venv
+
 
 
 # activer cet environnemnt virtuel
 source ~/my-python-env/bin/activate
+
+echo '[INFO] created python virtual environment - OK'
 
 
 
@@ -30,8 +49,13 @@ source ~/my-python-env/bin/activate
 #    système, Intel vs. ARM, par exemple
 
 git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror &&
-  cd magic-mirror &&
-  npm i
+  cd magic-mirror
+
+echo '[INFO] installed MagicMirror - OK'
+
+
+npm i
+echo '[INFO] installed MagicMirror node dependencies - OK'
 
 
 
@@ -43,12 +67,13 @@ git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror &&
 # - copier les styles, les images, le fichier de
 # configuration ( config.js ), etc.
 
-git clone -b complement-fix git@github.com:latelierco/magic-mirror.git latelier-complement-fix &&
+git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latelier-complement-fix &&
   cp -R latelier-complement-fix/css/custom.css \
   latelier-complement-fix/css/images \
   css/ && \
   cp latelier-complement-fix/config/config.js config/
 
+echo '[INFO] copied config files to Magic Mirror css and js directories - OK'
 
 
 # écriture du fix dans le fichier js/main.js
@@ -67,6 +92,8 @@ EOF
 tail -n 520 js/main.js >> js/main-new.js && \
   mv js/main-new.js js/main.js
 
+echo '[INFO] copied fix to js/main.js - OK'
+
 
 
 # installation des modules pour l atelier
@@ -74,26 +101,36 @@ tail -n 520 js/main.js >> js/main-new.js && \
 # respectives
 
 pushd modules && \
-  git clone -b repo-structure-evol https://github.com/latelierco/magic-mirror-modules.git && \
+  git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git && \
   mv magic-mirror-modules/* .
+
+echo "[INFO] installed L'Atelier / Magic Mirror modules - OK"
 
 
 pushd MMM-Face-Reco-DNN && \
   npm i && \
   popd
 
+echo '[INFO] installed node.js dependencies for MMM-Face-Reco-DNN - OK'
+
+
+pip install -r requirements.txt
+
+echo '[INFO] installed python dependencies for MMM-Face-Reco-DNN - OK'
+
 
 pushd MMM-idf-mobilite && \
   npm i && \
   popd
 
+echo '[INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
 
 
-# installation des modules pour l atelier
 
-pushd modules && \
-  git clone -b repo-structure-evol https://github.com/latelierco/magic-mirror-modules.git && \
-  mv magic-mirror-modules/* .
+
+
+
+
 
 
 
@@ -116,21 +153,24 @@ pushd modules && \
 pushd MMM-Face-Reco-DNN && \
   git clone https://github.com/latelierco/magic-mirror-backoffice.git
 
+echo '[INFO] installed MMM-Face-Reco-DNN backoffice - OK'
+
 
 pushd magic-mirror-backoffice && \
   npm i && \
   pushd http-service && \
   npm i
 
+echo '[INFO] installed MMM-Face-Reco-DNN backoffice node.js dependencies - OK'
 
 
 # retour au répertoire de racine
 # de l'application
 
-popd && \
-  popd && \
-  popd && \
-  popd
+# popd && \
+#   popd && \
+#   popd && \
+#   popd
 
 
 # Demander les fichiers de configuration
