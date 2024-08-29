@@ -91,6 +91,7 @@ let config = {
 				lon: 2.3515402275243815
 			}
 		},
+		/*
 		{
 			module: 'helloworld',
 			header: '',
@@ -100,6 +101,7 @@ let config = {
 				user: "None",
 			}
 		},
+		*/
 		/*
 		{
 			module: "newsfeed",
@@ -119,6 +121,15 @@ let config = {
 			}
 		},
 		*/
+		{
+			module: 'MMM-hello-user',
+			header: '',
+			position: "middle_center",
+			classes: 'unknown known',
+			config: {
+				user: "None",
+			}
+		},
 		{
 			module: 'MMM-news-le-monde',
 			classes: 'default everyone',
