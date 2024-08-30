@@ -4,6 +4,7 @@
 doc. versions :
 
 	- 2024-07-31
+	- 2024-08-29
 
 ---
 
@@ -12,7 +13,7 @@ doc. versions :
 
 ### Install
 
-repo address : https://github.com/latelierco/magic-mirror/tree/mmm-face-reco-dnn
+repo address : https://github.com/latelierco/magic-mirror/tree/complement-fix
 
 active branches :
 
@@ -23,24 +24,11 @@ active branches :
 
 ```bash
 
-	git clone git@github.com:latelierco/magic-mirror.git
-	git checkout mmm-face-reco-dnn
-	npm install
+	git clone https://github.com/latelierco/magic-mirror-modules
+	git checkout complement-fix
 
 ```
 
-
-### Run
-
-```bash
-
-	# in dev mode
-	npm start dev
-
-	# in plain mode
-	npm start
-
-```
 
 
 ---
@@ -55,16 +43,15 @@ active branches :
 
 #### Install the module
 
-repo address : https://github.com/tm-wong/MMM-Face-Reco-DNN
+repo address : https://github.com/latelierco/magic-mirror-modules
 
-active branch : upgrade-proposed-l_atelier
+active branch : python-ready
 
 
 ```bash
 
 
-	git clone git@github.com:tm-wong/MMM-Face-Reco-DNN.git
-	git checkout upgrade-proposed-l_atelier
+	git clone -b magic-mirror-modules https://github.com/latelierco/magic-mirror-modules
 
 
 ```

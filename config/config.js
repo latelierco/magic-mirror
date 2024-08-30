@@ -135,11 +135,9 @@ let config = {
 			classes: 'default everyone',
 			position: 'bottom_bar',
 			config: {
-				fetchInterval: 15 * 60 * 1000,
+				MAX_NEWS_LENGTH: 20,
 				url: 'https://www.lemonde.fr/rss/en_continu.xml?refresh=' + Math.floor(Math.random() * 1000000),
-				title: '',
-				description: '',
-				started: false,
+				news: []
 			}
 		},
 		{
@@ -151,10 +149,10 @@ let config = {
 				userModule: 'USERS_LOGIN',
 				idfMobilite: {
 					baseUrl: 'https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/',
-					apiKey: 'RMJ7ZSN0HTnw8N0b3dnwprETkoGEIng5',
+					apiKey: '< IDF Mobilités API Key >',
 				},
 				firebaseConfig: {
-					apiKey: 'AIzaSyDICIrxQCMOPzfDnRo1XS4ScoKyc5_1n0Y',
+					apiKey: '< Firebase / Firestore API Key >',
 					authDomain: 'connected-mirror-91cb7.firebaseapp.com',
 					projectId: 'connected-mirror-91cb7',
 					storageBucket: 'connected-mirror-91cb7.appspot.com',
