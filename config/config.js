@@ -159,7 +159,7 @@ let config = {
 			classes: 'default everyone',
 			position: 'bottom_bar',
 			config: {
-				MAX_NEWS_LENGTH: 20,
+				MAX_NEWS_LENGTH: 40,
 				url: 'https://www.lemonde.fr/rss/en_continu.xml?refresh=' + Math.floor(Math.random() * 1000000),
 				news: []
 			}
