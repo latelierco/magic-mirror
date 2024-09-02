@@ -68,7 +68,7 @@ echo ' [INFO] created python virtual environment - OK'
 #    peuvent varier selon le type d'architecture 
 #    système, Intel vs. ARM, par exemple
 
-git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror && \
+git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror && 
 	cd magic-mirror
 
 echo ' [INFO] installed MagicMirror - OK'
@@ -87,10 +87,10 @@ echo ' [INFO] installed MagicMirror node dependencies - OK'
 # - copier les styles, les images, le fichier de
 # configuration ( config.js ), etc.
 
-git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latelier-complement-fix && \
-	cp -R latelier-complement-fix/css/custom.css \
-	latelier-complement-fix/css/images \
-	css/ && \
+git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latelier-complement-fix && 
+	cp -R latelier-complement-fix/css/custom.css 
+	latelier-complement-fix/css/images 
+	css/ && 
 	cp latelier-complement-fix/config/config.js config/
 
 echo ' [INFO] copied config files to Magic Mirror css and js directories - OK'
@@ -124,22 +124,28 @@ echo ' [INFO] copied fix to js/main.js - OK'
 # ainsi que leurs dépendances node
 # respectives
 
-pushd modules && \
-	git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git && \
+pushd modules && 
+	git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git && 
 	mv magic-mirror-modules/* .
 
 echo " [INFO] installed L'Atelier / Magic Mirror modules - OK"
 
 
-pushd MMM-news-le-monde && \
-	npm i && \
+pushd MMM-news-le-monde && 
+	npm i && 
 	popd
 
 echo " [INFO] installed node dependencies for MMM-news-le-monde - OK"
 
 
+popd && 
+	pushd MMM-generic-welcome && 
+	npm i
 
-pushd MMM-Face-Reco-DNN && \
+
+
+popd && 
+	pushd MMM-Face-Reco-DNN && 
 	npm i
 
 echo ' [INFO] installed node.js dependencies for MMM-Face-Reco-DNN - OK'
@@ -161,8 +167,8 @@ echo ' [INFO] installed python dependencies for MMM-Face-Reco-DNN - OK'
 
 
 
-pushd MMM-idf-mobilite && \
-	npm i && \
+pushd MMM-idf-mobilite && 
+	npm i && 
 	popd
 
 echo ' [INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
@@ -192,27 +198,21 @@ echo ' [INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
 # pour un autre
 # ------------------------------------
 
-pushd MMM-Face-Reco-DNN && \
+pushd MMM-Face-Reco-DNN && 
 	git clone https://github.com/latelierco/magic-mirror-backoffice.git
 
 echo ' [INFO] installed MMM-Face-Reco-DNN backoffice - OK'
 
 
-pushd magic-mirror-backoffice && \
-	npm i && \
-	pushd http-service && \
+pushd magic-mirror-backoffice && 
+	npm i && 
+	pushd http-service && 
 	npm i
 
 echo ' [INFO] installed MMM-Face-Reco-DNN backoffice node.js dependencies - OK'
 
 
-# retour au répertoire de racine
-# de l'application
 
-# popd && \
-#   popd && \
-#   popd && \
-#   popd
 
 
 # Demander les fichiers de configuration
