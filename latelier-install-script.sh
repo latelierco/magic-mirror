@@ -47,16 +47,16 @@ parse_success $OUT "installed cmake" "cmake installation failed"
 # delete dirs magic-mirror & venv if exist
 
 if [ -d "magic-mirror" ]; then
-	echo " [INFO] Found magic-mirror directory" 
+	echo " [INFO] Found magic-mirror directory - OK"
 	rm -rf magic-mirror
-	echo " [INFO] Deleted magic-mirror directory" 
+	echo " [INFO] Deleted magic-mirror directory - OK"
 fi
 
 
 if [ -d "venv" ]; then
-	echo " [INFO] Found magic-mirror directory"
+	echo " [INFO] Found magic-mirror directory - OK"
 	rm -rf venv
-	echo " [INFO] Deleted magic-mirror directory"
+	echo " [INFO] Deleted magic-mirror directory - OK"
 fi
 
 
@@ -108,9 +108,8 @@ parse_success $OUT "installed MagicMirror node dependencies" "installing node de
 # configuration ( config.js ), etc.
 
 git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latelier-complement-fix && 
-	cp -R latelier-complement-fix/css/custom.css 
-	latelier-complement-fix/css/images 
-	css/ && 
+	cp latelier-complement-fix/css/custom.css css/ && \
+	cp -R latelier-complement-fix/css/images/ css/ && \
 	cp latelier-complement-fix/config/config.js config/
 
 OUT=$?
@@ -217,11 +216,12 @@ source ~/venv/bin/activate
 OUT=$?
 parse_success $OUT "python3 env activated" "python3 env activating failed"
 
-pip install -r requirements.txt && popd
+pip install -r requirements.txt
 
 OUT=$?
 parse_success $OUT "installed python dependencies for MMM-Face-Reco-DNN" "copying python dependencies for MMM-Face-Reco-DNN failed"
 
+popd
 
 deactivate
 
