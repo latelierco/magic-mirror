@@ -1,10 +1,17 @@
 #!/bin/bash
 
+parse_success () {
+  if [ $1 -eq 0 ]; then
+    echo \n" [INFO] $2 - OK"\n
+  else
+    echo \n" [ERROR] $3 - FAILURE"\n
+  fi
+}
 
-
+                 
 # installer python sur le système
 
-# sudo apt update && \
+# sudo apt update && \h
 #   sudo apt install -y python3
 # 
 # python3 est déjà installé
@@ -14,37 +21,42 @@
 # sudo apt upgrade
 
 # install node.js
-sudo apt install -y ca-certificates curl gnupg
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nodesource.gpg
 NODE_MAJOR=20
-echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-sudo apt -y update
-sudo apt -y install nodejs
+
+sudo apt install -y ca-certificates curl gnupg &&
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nodesource.gpg && 
+echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &&
+sudo apt -y update &&
+sudo apt -y install nodejs &&
 sudo apt -y install build-essential
 
-echo ' [INFO] installed node.js - OK'
+OUT=$?
+parse_success $OUT "installed node.js" "node.js installation failed"
+
 
 
 
 sudo apt install -y cmake
 
-echo ' [INFO] installed cmake - OK'
+OUT=$?
+parse_success $OUT "installed cmake" "cmake installation failed"
+
 
 
 
 # delete dirs magic-mirror & venv if exist
 
-if [ -d 'magic-mirror' ]; then
-	echo ' [INFO] Found magic-mirror directory'
+if [ -d "magic-mirror" ]; then
+	echo " [INFO] Found magic-mirror directory" 
 	rm -rf magic-mirror
-	echo ' [INFO] Deleted magic-mirror directory'
+	echo " [INFO] Deleted magic-mirror directory" 
 fi
 
 
-if [ -d 'venv' ]; then
-	echo ' [INFO] Found magic-mirror directory'
+if [ -d "venv" ]; then
+	echo " [INFO] Found magic-mirror directory"
 	rm -rf venv
-	echo ' [INFO] Deleted magic-mirror directory'
+	echo " [INFO] Deleted magic-mirror directory"
 fi
 
 
@@ -53,7 +65,10 @@ fi
 
 python3 -m venv --system-site-packages ~/venv
 
-echo ' [INFO] created python virtual environment - OK'
+OUT=$?
+parse_success $OUT "created python virtual environment" "creating python virtual environment failed"
+
+
 
 
 
@@ -62,26 +77,31 @@ echo ' [INFO] created python virtual environment - OK'
 # - se rendre dans le répertoire `magic-mirror`
 # - installer les dépendances node sur la base du package.json
 #
-#    /!\ Attention: éviter d'installer sur la base
-#    d'un fichier package-lock.json rovenant d'un 
-#    autre type d'appareil, les dépendances node
-#    peuvent varier selon le type d'architecture 
+#    /!\ Attention: éviter d"installer sur la base
+#    d"un fichier package-lock.json rovenant d"un 
+#    autre type d"appareil, les dépendances node
+#    peuvent varier selon le type d"architecture 
 #    système, Intel vs. ARM, par exemple
 
 git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror && \
 	cd magic-mirror
 
-echo ' [INFO] installed MagicMirror - OK'
+OUT=$?
+parse_success $OUT "installed MagicMirror" "installing MagicMirror failed"
+
 
 npm i
 
-echo ' [INFO] installed MagicMirror node dependencies - OK'
+OUT=$?
+parse_success $OUT "installed MagicMirror node dependencies" "installing node dependencies failed"
+
+
 
 
 
 # - installer du dépôt latelierco/magic-mirror,
 # la branche latelier-complement-fix, ceci avant merge
-# dans la branche `main` ( revue d'avant merge restant
+# dans la branche `main` ( revue d"avant merge restant
 # à faire aun 2024-08-26 )
 #
 # - copier les styles, les images, le fichier de
@@ -93,30 +113,56 @@ git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latel
 	css/ && \
 	cp latelier-complement-fix/config/config.js config/
 
-echo ' [INFO] copied config files to Magic Mirror css and js directories - OK'
+OUT=$?
+parse_success $OUT "copied config files to Magic Mirror css and js directories" "copying config files to Magic Mirror css and js directories failed"
+
+
+
 
 
 # écriture du fix dans le fichier js/main.js
 # pour la gestion de plusieurs utilisateurs
 
-sed -n '1,519p' js/main.js > js/main-start.js
-sed -n '520,743p' js/main.js > js/main-end.js
+sed -n "1,519p" js/main.js > js/main-start.js
+
+OUT=$?
+parse_success $OUT "sed 1" "sed 1 failed"
+
+sed -n "520,743p" js/main.js > js/main-end.js
+
+OUT=$?
+parse_success $OUT "sed 2" "sed 2 failed"
+
 
 cat js/main-start.js > js/main.js
 
+OUT=$?
+parse_success $OUT "js/main-start.js to js/main.js" "js/main-start.js to js/main.js failed"
+
 cat << EOF >> js/main.js
  
-			// L'Atelier fix
+			// L"Atelier fix
 			else if (Array.isArray(className) === false) {
 				searchClasses = [];
 			}
 	 
 EOF
 
+OUT=$?
+parse_success $OUT "fix to js/main.js" "fix to js/main.js failed"
+
+
+
 cat js/main-end.js >> js/main.js
+
+
+OUT=$?
+parse_success $OUT "js/main-end.js to js/main.js" "js/main-end.js to js/main.js failed"
+
 rm js/main-start.js js/main-end.js
 
-echo ' [INFO] copied fix to js/main.js - OK'
+OUT=$?
+parse_success $OUT "removed js/main-start.js and js/main-end.js" "removing js/main-start.js and js/main-end.js failed"
 
 
 
@@ -128,36 +174,61 @@ pushd modules && \
 	git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git && \
 	mv magic-mirror-modules/* .
 
-echo " [INFO] installed L'Atelier / Magic Mirror modules - OK"
+OUT=$?
+parse_success $OUT "installed L`Atelier / Magic Mirror modules" "installing L`Atelier / Magic Mirror modules failed"
+
 
 
 pushd MMM-news-le-monde && \
 	npm i && \
 	popd
 
-echo " [INFO] installed node dependencies for MMM-news-le-monde - OK"
+OUT=$?
+parse_success $OUT "installed node dependencies for MMM-news-le-monde" "installing node dependencies for MMM-news-le-monde failed"
 
+
+
+pushd MMM-generic-welcome && \
+	npm i && \
+	popd
+
+
+OUT=$?
+parse_success $OUT "installed node dependencies for MMM-generic-welcome" "installing node.js dependencies for MMM-Face-Reco-DNN failed"
 
 
 pushd MMM-Face-Reco-DNN && \
 	npm i
 
-echo ' [INFO] installed node.js dependencies for MMM-Face-Reco-DNN - OK'
+OUT=$?
+parse_success $OUT "installed node.js dependencies for MMM-Face-Reco-DNN" "installing node.js dependencies for MMM-Face-Reco-DNN failed"
+
 
 
 cp ~/ressources-for-magic-mirror/encodings.pickle ~/magic-mirror/modules/MMM-Face-Reco-DNN/model/
 
-echo ' [INFO] copied encoding.pickle to MMM-Face-Reco-DNN module - OK'
+OUT=$?
+parse_success $OUT "copied encoding.pickle to MMM-Face-Reco-DNN module" "copying encoding.pickle to MMM-Face-Reco-DNN module failed"
+
+
 
 
 # activer cet environnemnt virtuel
 source ~/venv/bin/activate
 
+OUT=$?
+parse_success $OUT "python3 env activated" "python3 env activating failed"
+
 pip install -r requirements.txt && popd
+
+OUT=$?
+parse_success $OUT "installed python dependencies for MMM-Face-Reco-DNN" "copying python dependencies for MMM-Face-Reco-DNN failed"
+
 
 deactivate
 
-echo ' [INFO] installed python dependencies for MMM-Face-Reco-DNN - OK'
+OUT=$?
+parse_success $OUT "python3 env deactivated" "python3 env deactivating failed"
 
 
 
@@ -165,7 +236,9 @@ pushd MMM-idf-mobilite && \
 	npm i && \
 	popd
 
-echo ' [INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
+OUT=$?
+parse_success $OUT "installed node.js dependencies for MMM-idf-mobilite" "copying installed node.js dependencies for MMM-idf-mobilite failed"
+
 
 
 
@@ -184,10 +257,10 @@ echo ' [INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
 # ------------------------------------
 # /!\ Attention: 
 # Il faut noter que
-# la capture d'image (photos d'utilisateurs)
-# ne peut avoir lieu pendant que l'application
+# la capture d"image (photos d"utilisateurs)
+# ne peut avoir lieu pendant que l"application
 # MagicMirror est en cours de fonctionnement :
-# la camera (webcam) de l'appareil se trouvant
+# la camera (webcam) de l"appareil se trouvant
 # mobilisée pour un process ne peut être mobilisée
 # pour un autre
 # ------------------------------------
@@ -195,7 +268,10 @@ echo ' [INFO] installed node.js dependencies for MMM-idf-mobilite - OK'
 pushd MMM-Face-Reco-DNN && \
 	git clone https://github.com/latelierco/magic-mirror-backoffice.git
 
-echo ' [INFO] installed MMM-Face-Reco-DNN backoffice - OK'
+
+OUT=$?
+parse_success $OUT "installed MMM-Face-Reco-DNN backoffice" "installing MMM-Face-Reco-DNN backoffice failed"
+
 
 
 pushd magic-mirror-backoffice && \
@@ -203,20 +279,13 @@ pushd magic-mirror-backoffice && \
 	pushd http-service && \
 	npm i
 
-echo ' [INFO] installed MMM-Face-Reco-DNN backoffice node.js dependencies - OK'
 
-
-# retour au répertoire de racine
-# de l'application
-
-# popd && \
-#   popd && \
-#   popd && \
-#   popd
+OUT=$?
+parse_success $OUT "installed MMM-Face-Reco-DNN backoffice node.js dependencies" "installing MMM-Face-Reco-DNN backoffice node.js dependencies failed"
 
 
 # Demander les fichiers de configuration
-# pour firebase à l'admin pour ces modules.
+# pour firebase à l"admin pour ces modules.
 # 
 # Il en existe deux :
 #
@@ -227,12 +296,12 @@ echo ' [INFO] installed MMM-Face-Reco-DNN backoffice node.js dependencies - OK'
 #
 #   - un autre fichier, `firebase-credentials.js`, devra être placé
 #     dans un répertoire nommé `security` situé à la racine du répertoire 
-#     du backoffice. de façon plus exacte, l'emplacement de fichier devrait être :
+#     du backoffice. de façon plus exacte, l"emplacement de fichier devrait être :
 #     `/home/pi/magic-mirror/modules/MMM-Face-Reco-DNN/backoffice-magic-mirror/security/firebase-credentials.js`
-#     selon l'emplacement de `magic-mirror`
+#     selon l"emplacement de `magic-mirror`
 #
 #
 #
 #     par ailleurs, une copie de ces deux fichiers
-#     a été placée sur le Drive de L'Atelier
+#     a été placée sur le Drive de L"Atelier
 #     dans le répertoire partagé `MIROIR CONNECTE/firebase-credentials`
