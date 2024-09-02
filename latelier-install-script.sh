@@ -8,17 +8,9 @@ parse_success () {
   fi
 }
 
-                 
-# installer python sur le système
-
-# sudo apt update && \h
-#   sudo apt install -y python3
-# 
-# python3 est déjà installé
-# avec system update et upgrade
-# 
-# sudo apt update
-# sudo apt upgrade
+           
+# home 
+cd /home/pi
 
 # install node.js
 NODE_MAJOR=20
@@ -304,3 +296,12 @@ parse_success $OUT "installed MMM-Face-Reco-DNN backoffice node.js dependencies"
 #     par ailleurs, une copie de ces deux fichiers
 #     a été placée sur le Drive de L"Atelier
 #     dans le répertoire partagé `MIROIR CONNECTE/firebase-credentials`
+
+
+# startup
+
+cd /home/pi &&
+cp magic-mirror/latelier-complement-fix/startup.sh . &&
+crontab -l >/tmp/c1 &&
+echo '@reboot /home/pi/startup.sh' >>/tmp/c1 &&
+crontab /tmp/c1
