@@ -92,10 +92,6 @@ parse_success $OUT "installed MagicMirror node dependencies" "installing node de
 
 
 # - installer du dépôt latelierco/magic-mirror,
-# la branche latelier-complement-fix, ceci avant merge
-# dans la branche `main` ( revue d"avant merge restant
-# à faire aun 2024-08-26 )
-#
 # - copier les styles, les images, le fichier de
 # configuration ( config.js ), etc.
 
