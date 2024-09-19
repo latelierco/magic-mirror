@@ -8,15 +8,15 @@ parse_success () {
   fi
 }
 
-           
-# home 
+
+# home
 cd /home/pi
 
 # install node.js
 NODE_MAJOR=20
 
 sudo apt install -y ca-certificates curl gnupg &&
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nodesource.gpg && 
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nodesource.gpg &&
 echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &&
 sudo apt -y update &&
 sudo apt -y install nodejs &&
@@ -70,12 +70,12 @@ parse_success $OUT "created python virtual environment" "creating python virtual
 # - installer les dépendances node sur la base du package.json
 #
 #    /!\ Attention: éviter d"installer sur la base
-#    d"un fichier package-lock.json rovenant d"un 
+#    d"un fichier package-lock.json rovenant d"un
 #    autre type d"appareil, les dépendances node
-#    peuvent varier selon le type d"architecture 
+#    peuvent varier selon le type d"architecture
 #    système, Intel vs. ARM, par exemple
 
-git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror && 
+git clone https://github.com/MagicMirrorOrg/MagicMirror.git magic-mirror &&
 	cd magic-mirror
 
 OUT=$?
@@ -99,7 +99,7 @@ parse_success $OUT "installed MagicMirror node dependencies" "installing node de
 # - copier les styles, les images, le fichier de
 # configuration ( config.js ), etc.
 
-git clone -b complement-fix https://github.com/latelierco/magic-mirror.git latelier-complement-fix && 
+git clone https://github.com/latelierco/magic-mirror.git latelier-complement-fix &&
 	cp latelier-complement-fix/css/custom.css css/ && \
 	cp -R latelier-complement-fix/css/images/ css/ && \
 	cp latelier-complement-fix/config/config.js config/
@@ -131,12 +131,12 @@ OUT=$?
 parse_success $OUT "js/main-start.js to js/main.js" "js/main-start.js to js/main.js failed"
 
 cat << EOF >> js/main.js
- 
+
 			// L"Atelier fix
 			else if (Array.isArray(className) === false) {
 				searchClasses = [];
 			}
-	 
+
 EOF
 
 OUT=$?
@@ -161,8 +161,8 @@ parse_success $OUT "removed js/main-start.js and js/main-end.js" "removing js/ma
 # ainsi que leurs dépendances node
 # respectives
 
-pushd modules && 
-	git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git && 
+pushd modules &&
+	git clone -b python-ready https://github.com/latelierco/magic-mirror-modules.git &&
 	mv magic-mirror-modules/* .
 
 OUT=$?
@@ -170,8 +170,8 @@ parse_success $OUT "installed L`Atelier / Magic Mirror modules" "installing L`At
 
 
 
-pushd MMM-news-le-monde && 
-	npm i && 
+pushd MMM-news-le-monde &&
+	npm i &&
 	popd
 
 OUT=$?
@@ -222,8 +222,8 @@ parse_success $OUT "python3 env deactivated" "python3 env deactivating failed"
 
 
 
-pushd MMM-idf-mobilite && 
-	npm i && 
+pushd MMM-idf-mobilite &&
+	npm i &&
 	popd
 
 OUT=$?
@@ -240,12 +240,12 @@ parse_success $OUT "installed node.js dependencies for MMM-idf-mobilite" "copyin
 
 
 
-# installation du backoffice pour 
-# la reconnaissance faciale et 
+# installation du backoffice pour
+# la reconnaissance faciale et
 # pour la gestion des utilisateurs
-# 
+#
 # ------------------------------------
-# /!\ Attention: 
+# /!\ Attention:
 # Il faut noter que
 # la capture d"image (photos d"utilisateurs)
 # ne peut avoir lieu pendant que l"application
@@ -255,7 +255,7 @@ parse_success $OUT "installed node.js dependencies for MMM-idf-mobilite" "copyin
 # pour un autre
 # ------------------------------------
 
-pushd MMM-Face-Reco-DNN && 
+pushd MMM-Face-Reco-DNN &&
 	git clone https://github.com/latelierco/magic-mirror-backoffice.git
 
 
@@ -264,9 +264,9 @@ parse_success $OUT "installed MMM-Face-Reco-DNN backoffice" "installing MMM-Face
 
 
 
-pushd magic-mirror-backoffice && 
-	npm i && 
-	pushd http-service && 
+pushd magic-mirror-backoffice &&
+	npm i &&
+	pushd http-service &&
 	npm i
 
 
@@ -277,16 +277,16 @@ parse_success $OUT "installed MMM-Face-Reco-DNN backoffice node.js dependencies"
 
 # Demander les fichiers de configuration
 # pour firebase à l"admin pour ces modules.
-# 
+#
 # Il en existe deux :
 #
 #   - un  pour le service node.js du mocule MMM-idf-mobilite
-#     un répertoire nommé `security` doit être créé à la racine 
+#     un répertoire nommé `security` doit être créé à la racine
 #     du module. le fichier `connected-mirror-91cb7-firebase-adminsdk-eh3n0-536f9aa3ae.json`
 #     pourra y être placé, une fois remis par un admin
 #
 #   - un autre fichier, `firebase-credentials.js`, devra être placé
-#     dans un répertoire nommé `security` situé à la racine du répertoire 
+#     dans un répertoire nommé `security` situé à la racine du répertoire
 #     du backoffice. de façon plus exacte, l"emplacement de fichier devrait être :
 #     `/home/pi/magic-mirror/modules/MMM-Face-Reco-DNN/backoffice-magic-mirror/security/firebase-credentials.js`
 #     selon l"emplacement de `magic-mirror`
